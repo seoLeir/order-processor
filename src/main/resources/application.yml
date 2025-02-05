@@ -1,0 +1,120 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: order-processor
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    database: postgresql
+    open-in-view: false
+    generate-ddl: false
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/order_processor
+    username: seoleir
+    password: seoleir!@#$
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      auto-commit: false
+      transaction-isolation: TRANSACTION_READ_COMMITTED
+
+  kafka:
+    consumer:
+      group-id: order-processors
+      enable-auto-commit: true
+      isolation-level: read_committed
+      max-poll-records: 100
+      bootstrap-servers:
+        - localhost:29092
+        - localhost:39092
+        - localhost:49092
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      properties:
+#        spring.json.trusted.packages: "*"
+#        spring.json.value.default.type: "com.ecommerce.orderprocessor.dto.kafka.OrderEventDTO"
+    bootstrap-servers:
+      - localhost:29092
+      - localhost:39092
+      - localhost:49092
+    listener:
+      ack-mode: manual_immediate
+
+management:
+  endpoints:
+    web:
+      base-path: /management
+      exposure:
+        include: ['auditevents', 'beans', 'conditions', 'configprops', 'env', 'health', 'info',
+                  'logfile', 'loggers', 'metrics', 'scheduledtasks', 'prometheus']
+      discovery:
+        enabled: true
+    jmx:
+      exposure:
+        include: ['health']
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+      group:
+        liveness:
+          include: livenessState
+        readiness:
+          include: readinessState
+  auditevents:
+    enabled: true
+  info:
+    ssl:
+      enabled: true
+    env:
+      enabled: true
+    defaults:
+      enabled: true
+    git:
+      mode: full
+      enabled: true
+    java:
+      enabled: true
+    build:
+      enabled: true
+    os:
+      enabled: true
+    process:
+      enabled: true
+
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+        step: 60
+  observations:
+    key-values:
+      application: ${spring.application.name}
+  metrics:
+    enable:
+      http: true
+      jvm: true
+      logback: true
+      process: true
+      system: true
+    distribution:
+      percentiles-histogram:
+        all: true
+      percentiles:
+        all: 0, 0.5, 0.75, 0.95, 0.99, 1.0
+    data:
+      repository:
+        autotime:
+          enabled: true
+
+
+order:
+  processor:
+    jwt:
+      lifetime: 15m
+      key: "+uQr0rgeQ4XR7S0jjoGw3zx4RLMV1ElQ6egxRx93t7w="

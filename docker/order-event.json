@@ -1,0 +1,17 @@
+{
+  "orderId": "550e8400-e29b-41d4-a716-446655440000",
+  "customerId": "a3bb189e-8bf9-3888-9912-ace4e6543002",
+  "totalAmount": 250.75,
+  "itemList": [
+    {
+      "itemId": "a3bb189e-8bf9-3888-9912-ace4e6543002",
+      "quantity": 2,
+      "price": 100.50
+    },
+    {
+      "itemId": "550e8400-e29b-41d4-a716-446655440000",
+      "quantity": 1,
+      "price": 49.75
+    }
+  ]
+}
