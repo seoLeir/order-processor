@@ -82,5 +82,5 @@ public void sendToDeadLetterQueue(String message, OrderEventDTO orderEventDTO, S
 ```
 
 ---
-### ** Автор: [seoLeir](https://github.com/seoLeir)**
+#### Автор: [seoLeir](https://github.com/seoLeir)
 
