@@ -39,10 +39,11 @@ docker-compose -f docker/docker-compose.yml up -d
 
 ### 3**Запускаем приложение**
 ```sh
-./mvnw spring-boot:run
+chmod +x ./gradlew
+./gradlew bootRun 
 ```
 
-### 4️⃣ **Curl запрос для отправки тестового event Kafka Producer**
+### **Curl запрос для отправки тестового event Kafka Producer**
 ```sh
 curl -X POST "http://localhost:9000/api/producer" \
      -H "Content-Type: application/json" \
@@ -66,7 +67,7 @@ curl -X POST "http://localhost:9000/api/producer" \
 ```
 
 
-## ⚠️ Обработка ошибок и DLQ
+## Обработка ошибок и DLQ
 - Используется **@RetryableTopic**, чтобы **Kafka автоматически ретраила** неудачные сообщения.
 - При **3 неудачных попытках** сообщения отправляются в **orders-dlq**.
 - **DLQ Consumer** логирует и анализирует "битые" сообщения.
@@ -81,5 +82,5 @@ public void sendToDeadLetterQueue(String message, OrderEventDTO orderEventDTO, S
 ```
 
 ---
-### **📌 Автор: [seoLeir](https://github.com/seoLeir)**
+### ** Автор: [seoLeir](https://github.com/seoLeir)**
 
